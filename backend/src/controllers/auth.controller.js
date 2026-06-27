@@ -14,7 +14,7 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "Password must be at least 6 characters" });
     }
 
-    // check if emailis valid: regex
+    // check if emailis valid: regex ---->regular express 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
       return res.status(400).json({ message: "Invalid email format" });
@@ -23,7 +23,7 @@ export const signup = async (req, res) => {
     const user = await User.findOne({ email });
     if (user) return res.status(400).json({ message: "Email already exists" });
 
-    // 123456 => $dnjasdkasj_?dmsakmk
+    // 123456 => $dnjasdkasj_?dmsakmk --->jumbled string with  characters,numbers;
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -96,4 +96,26 @@ export const login = async (req, res) => {
 export const logout = (_, res) => {
   res.cookie("jwt", "", { maxAge: 0 });
   res.status(200).json({ message: "Logged out successfully" });
+};
+
+export const updateProfile = async (req, res) => {
+  try {
+    const { profilePic } = req.body;
+    if (!profilePic) return res.status(400).json({ message: "Profile pic is required" });
+
+    const userId = req.user._id;
+
+    const uploadResponse = await cloudinary.uploader.upload(profilePic);
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { profilePic: uploadResponse.secure_url },
+      { new: true }
+    );
+
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.log("Error in update profile:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 };
