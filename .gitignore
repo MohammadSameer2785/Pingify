@@ -1,0 +1,5 @@
+node_modules
+.env
+
+
+//The files in the gitignore will be ignored by the git 
