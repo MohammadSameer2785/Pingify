@@ -2,12 +2,16 @@
 import express from 'express' //ES module
 import dotenv from "dotenv"
 import path from "path"
+import {connectDB}  from './lib/db.js'
 
 import authRoutes from "./routes/auth.route.js"
 const app=express();
 const __dirname=path.resolve();
 dotenv.config();
 const PORT=process.env.PORT||3000;
+
+app.use(express.json());//It is used get the fiedl that are entered in the fronend (body)
+
 app.use("/api/auth",authRoutes)
 
 //make ready to deployment 
@@ -19,4 +23,6 @@ if(process.env.NODE_ENV=="production"){
     })
 }
 
-app.listen(PORT,()=>{console.log(`app is listening on the port ${PORT}`)})
+app.listen(PORT,()=>{
+    connectDB();
+    console.log(`app is listening on the port ${PORT}`)})
