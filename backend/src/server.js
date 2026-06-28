@@ -13,7 +13,7 @@ const PORT=process.env.PORT||3000;
 app.use(express.json());//It is used get the fiedl that are entered in the fronend (body)
 
 app.use("/api/auth",authRoutes)
-
+app.use("/auth/messages",messsageRoutes)
 //make ready to deployment 
 if(process.env.NODE_ENV=="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
