@@ -10,7 +10,7 @@ const __dirname=path.resolve();
 dotenv.config();
 const PORT=process.env.PORT||3000;
 
-app.use(express.json());//It is used get the fiedl that are entered in the fronend (body)
+app.use(express.json());//It is used get the fields that are entered in the fronend (body)
 
 app.use("/api/auth",authRoutes)
 app.use("/auth/messages",messsageRoutes)
