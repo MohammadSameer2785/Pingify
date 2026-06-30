@@ -13,7 +13,7 @@ dotenv.config();
 const PORT=process.env.PORT||3000;
 app.use(cookieParser()); 
 app.use(cors({origin:process.env.CLIENT_URL,credentials:true}));//credentials:true means we are allowing to send the cookies to the backend by the frontend
-app.use(express.json());//It is used get the fields that are entered in the frontend (body)
+app.use(express.json({limit:"5mb"}));//It is used get the fields that are entered in the frontend (body)
 
 app.use("/api/auth",authRoutes)
 app.use("/auth/messages",messageRoutes)
