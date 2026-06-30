@@ -4,8 +4,8 @@ import dotenv from "dotenv"
 import path from "path"
 import cors from "cors"
 import {connectDB}  from './lib/db.js'
-
 import authRoutes from "./routes/auth.route.js"
+import messageRoutes from "./routes/message.route.js"
 const app=express();
 const __dirname=path.resolve();
 dotenv.config();
@@ -14,7 +14,7 @@ app.use(cors({origin:process.env.CLIENT_URL,credentials:true}));//credentials:tr
 app.use(express.json());//It is used get the fields that are entered in the frontend (body)
 
 app.use("/api/auth",authRoutes)
-app.use("/auth/messages",messsageRoutes)
+app.use("/auth/messages",messageRoutes)
 //make ready to deployment 
 if(process.env.NODE_ENV=="production"){
     app.use(express.static(path.join(__dirname,"../frontend/dist")))
