@@ -6,9 +6,9 @@ const router=express.Router();
 
 //router.use(arcjectProtection); can be used for once
 
-router.get("/login",arcjectProtection,login)
-router.post("/signup",arcjectProtection,signup)
-router.post("/logout",arcjectProtection,logout)
+router.post("/login",login)
+router.post("/signup",signup)
+router.post("/logout",logout)
 router.put("/update-profile",arcjectProtection,protectRoute,updateProfile)
 router.get("/check",protectRoute,(req,res)=>{
     res.status(200).json(req.user); 
