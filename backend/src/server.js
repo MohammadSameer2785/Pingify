@@ -10,7 +10,7 @@ import messageRoutes from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
 
 dotenv.config();
-
+console.log("CLIENT_URL =", process.env.CLIENT_URL);
 const PORT = process.env.PORT || 3000;
 
 // Middlewares
