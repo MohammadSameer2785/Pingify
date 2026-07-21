@@ -96,10 +96,17 @@ export const login = async (req, res) => {
 };
 
 export const logout = (_, res) => {
-  res.cookie("jwt", "", { maxAge: 0 });
-  res.status(200).json({ message: "Logged out successfully" });
-};
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "none",
+    path: "/",
+  });
 
+  res.status(200).json({
+    message: "Logged out successfully",
+  });
+};
 export const updateProfile = async (req, res) => {
   try {
     const { profilePic } = req.body;
