@@ -10,6 +10,7 @@ import messageRoutes from "./routes/message.route.js";
 import { app, server } from "./lib/socket.js";
 
 dotenv.config();
+app.set("trust proxy", 1);
 console.log("CLIENT_URL =", process.env.CLIENT_URL);
 const PORT = process.env.PORT || 3000;
 
